@@ -1,4 +1,5 @@
 import argparse
+import os
 import yaml
 
 
@@ -33,26 +34,43 @@ def interactive_mode():
     return project_data
 
 
+def add_default_step():
+    default_step = [{
+        "etap": "Tworzenie koncepcji",
+        "czas_wykonania": "1h",
+        "priorytet": "pilny",
+        "zależności": []
+    }]
+    return default_step
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Tworzenie pliku YAML dla projektu.")
     parser.add_argument("-a", "--add", action="store_true", help="Tryb interaktywny do dodawania etapów.")
     parser.add_argument("--etap", type=str, help="Nazwa etapu")
     parser.add_argument("--czas_wykonania", type=str, help="Czas wykonania etapu (np. '3 dni')")
-    parser.add_argument("--priorytet", type=str, choices=['niski', 'średni', 'wysoki'], help="Priorytet etapu")
+    parser.add_argument("--priorytet", type=str, choices=['niski', 'średni', 'wysoki', 'pilny'], help="Priorytet etapu")
     parser.add_argument("--zależności", type=str, help="Zależności etapu (oddzielone przecinkiem)")
-
     return parser.parse_args()
+
 
 def main():
     args = parse_args()
 
+    # Sprawdzanie czy plik dialogplan.yaml już istnieje
+    yaml_file_exists = os.path.exists("dialogplan.yaml")
+
     if args.add:
         project_data = interactive_mode()
-    else:
-        if not (args.etap and args.czas_wykonania and args.priorytet):
+
+    elif not (args.etap and args.czas_wykonania and args.priorytet):
+        if not yaml_file_exists:
+            print("Nie podano żadnego etapu i plik dialogplan.yaml nie istnieje.")
+            project_data = add_default_step()
+        else:
             print("Musisz podać wszystkie parametry: --etap, --czas_wykonania, --priorytet.")
             return
-
+    else:
         zależności_list = [z.strip() for z in args.zależności.split(',')] if args.zależności else []
 
         project_data = [{
@@ -62,7 +80,14 @@ def main():
             "zależności": zależności_list
         }]
 
+    if yaml_file_exists:
+        # Jeśli plik istnieje, wczytaj istniejącą zawartość i dodaj nowe etapy
+        with open("dialogplan.yaml", 'r') as file:
+            existing_data = yaml.safe_load(file) or []
+        project_data = existing_data + project_data
+
     create_yaml_file(project_data)
+
 
 if __name__ == "__main__":
     main()

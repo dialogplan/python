@@ -1,12 +1,45 @@
 import argparse
 import os
 import yaml
+from datetime import datetime
+
+# config
+PLAN_FILE = "dialogplan.yaml"
+STEP_QUESTION="Podaj pytanie"
+STEP_NAME="Podaj nazwę etapu"
+STEP_VALUE="Podaj wartość"
+
+HISTORY_FILE = "dialoghistory.yaml"
+HISTORY_HEADER = "Data | Kto | Opis"
+HISTORY_QUESTION="Podaj opis zmiany"
+HISTORY_NAME="Podaj etap"
+HISTORY_VALUE="Podaj nową wartość"
 
 
-def create_yaml_file(data, filename="dialogplan.yaml"):
+# START
+
+def create_yaml_file(data, filename=PLAN_FILE):
     with open(filename, 'w') as file:
         yaml.safe_dump(data, file, sort_keys=False, allow_unicode=True)
     print(f"Plik {filename} został utworzony.")
+
+
+def update_history(change_description, history_file=HISTORY_FILE):
+    if os.path.exists(history_file):
+        with open(history_file, 'r') as file:
+            history_data = yaml.safe_load(file) or {"zmiany": []}
+    else:
+        history_data = {"zmiany": []}
+
+    history_data["zmiany"].append({
+        "data": str(datetime.now().date()),
+        "kto": os.getenv('USER', 'unknown'),
+        "opis": change_description
+    })
+
+    with open(history_file, 'w') as file:
+        yaml.safe_dump(history_data, file, sort_keys=False, allow_unicode=True)
+    print(f"Zapisano historię do pliku {history_file}")
 
 
 def interactive_mode():
@@ -18,7 +51,7 @@ def interactive_mode():
         priorytet = input("Podaj priorytet (niski, średni, wysoki): ")
         zależności = input("Podaj zależności (oddzielone przecinkiem, jeśli brak, zostaw puste): ")
 
-        zależności_list = [z.strip() for z in zależności.split(',')] if zależności else []
+        zależności_list = [z.strip() for z in zależności.split(',')] if zależności else[]
 
         project_data.append({
             "etap": etap,
@@ -53,20 +86,22 @@ def parse_args():
     parser.add_argument("--zależności", type=str, help="Zależności etapu (oddzielone przecinkiem)")
     return parser.parse_args()
 
-
 def main():
     args = parse_args()
 
     # Sprawdzanie czy plik dialogplan.yaml już istnieje
-    yaml_file_exists = os.path.exists("dialogplan.yaml")
+    yaml_file_exists = os.path.exists(PLAN_FILE)
 
     if args.add:
         project_data = interactive_mode()
+        if project_data:
+            update_history(f"Dodano nowe etapy interaktywnie: {[etap['etap'] for etap in project_data]}")
 
     elif not (args.etap and args.czas_wykonania and args.priorytet):
         if not yaml_file_exists:
             print("Nie podano żadnego etapu i plik dialogplan.yaml nie istnieje.")
             project_data = add_default_step()
+            update_history("Dodano domyślny etap 'Tworzenie koncepcji'")
         else:
             print("Musisz podać wszystkie parametry: --etap, --czas_wykonania, --priorytet.")
             return
@@ -79,15 +114,15 @@ def main():
             "priorytet": args.priorytet,
             "zależności": zależności_list
         }]
+        update_history(f"Dodano etap '{args.etap}' z priorytetem '{args.priorytet}'")
 
     if yaml_file_exists:
         # Jeśli plik istnieje, wczytaj istniejącą zawartość i dodaj nowe etapy
-        with open("dialogplan.yaml", 'r') as file:
+        with open(PLAN_FILE, 'r') as file:
             existing_data = yaml.safe_load(file) or []
         project_data = existing_data + project_data
 
     create_yaml_file(project_data)
-
 
 if __name__ == "__main__":
     main()

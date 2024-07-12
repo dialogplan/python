@@ -1,0 +1,104 @@
+dialogstory:
+  - use_case: User Registration
+    description: "Użytkownik rejestruje się w aplikacji."
+    steps:
+      - actor: User
+        action: "Otwiera aplikację."
+      - actor: System
+        action: "Wyświetla ekran powitalny z opcją rejestracji lub logowania."
+      - actor: User
+        action: "Wybiera opcję rejestracji."
+      - actor: System
+        action: "Wyświetla formularz rejestracyjny."
+      - actor: User
+        action: "Wprowadza swoje dane (nazwa użytkownika, hasło, email) i potwierdza."
+      - actor: System
+        action: "Weryfikuje dane i tworzy konto użytkownika."
+      - actor: System
+        action: "Wyświetla komunikat potwierdzający rejestrację i przekierowuje na ekran główny."
+
+  - use_case: Place Order
+    description: "Użytkownik składa zamówienie na jedzenie."
+    steps:
+      - actor: User
+        action: "Loguje się do aplikacji."
+      - actor: System
+        action: "Wyświetla ekran główny z listą kategorii jedzenia."
+      - actor: User
+        action: "Wybiera kategorię (np. Pizza)."
+      - actor: System
+        action: "Wyświetla listę dostępnych restauracji."
+      - actor: User
+        action: "Wybiera restaurację z listy."
+      - actor: System
+        action: "Wyświetla menu wybranej restauracji."
+      - actor: User
+        action: "Wybiera danie z menu i dodaje do koszyka."
+      - actor: User
+        action: "Przechodzi do koszyka i wybiera opcję zamówienia."
+      - actor: System
+        action: "Wyświetla formularz z danymi dostawy i opcjami płatności."
+      - actor: User
+        action: "Wprowadza dane dostawy i wybiera metodę płatności."
+      - actor: User
+        action: "Potwierdza zamówienie."
+      - actor: System
+        action: "Przetwarza płatność i wyświetla komunikat potwierdzający zamówienie z szacowanym czasem dostawy."
+
+  - use_case: Track Order
+    description: "Użytkownik śledzi status swojego zamówienia."
+    steps:
+      - actor: User
+        action: "Loguje się do aplikacji."
+      - actor: System
+        action: "Wyświetla ekran główny z ikoną statusu zamówienia."
+      - actor: User
+        action: "Kliknij ikonę statusu zamówienia."
+      - actor: System
+        action: "Wyświetla szczegóły zamówienia z aktualnym statusem (np. przygotowywanie, w drodze, dostarczone)."
+      - actor: User
+        action: "Śledzi aktualny status swojego zamówienia na mapie w czasie rzeczywistym."
+      - actor: System
+        action: "Aktualizuje status zamówienia w miarę jego postępu."
+      - actor: System
+        action: "Informuje użytkownika o dostarczeniu zamówienia."
+
+  - use_case: Leave a Review
+    description: "Użytkownik dodaje recenzję po otrzymaniu zamówienia."
+    steps:
+      - actor: User
+        action: "Loguje się do aplikacji."
+      - actor: System
+        action: "Wyświetla ekran główny z historią zamówień."
+      - actor: User
+        action: "Wybiera zamówienie z historii zamówień."
+      - actor: System
+        action: "Wyświetla szczegóły zamówienia z opcją zostawienia recenzji."
+      - actor: User
+        action: "Kliknij opcję dodania recenzji."
+      - actor: System
+        action: "Wyświetla formularz recenzji z miejscami na ocenę (np. gwiazdki) i komentarz."
+      - actor: User
+        action: "Wprowadza swoją ocenę i komentarz, a następnie zatwierdza recenzję."
+      - actor: System
+        action: "Zapisuje recenzję i potwierdza jej dodanie."
+  
+  - use_case: Update Profile
+    description: "Użytkownik zmienia dane swojego profilu."
+    steps:
+      - actor: User
+        action: "Loguje się do aplikacji."
+      - actor: System
+        action: "Wyświetla ekran główny z ikoną profilu."
+      - actor: User
+        action: "Kliknij ikonę profilu."
+      - actor: System
+        action: "Wyświetla szczegóły konta użytkownika."
+      - actor: User
+        action: "Wybiera opcję edycji profilu."
+      - actor: System
+        action: "Wyświetla formularz edycji profilu."
+      - actor: User
+        action: "Wprowadza nowe dane i zatwierdza zmiany."
+      - actor: System
+        action: "Zapisuje zmienione dane i potwierdza aktualizację profilu."

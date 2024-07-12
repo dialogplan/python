@@ -1,0 +1,10 @@
+dialograph:
+  color:
+    background: white
+    lines: black
+  renderer: mermaid
+  startOnLoad: true
+  theme: default
+  flowchart:
+  size: hd
+  format: svg

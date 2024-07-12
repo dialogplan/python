@@ -1,0 +1,26 @@
+dialogstory:
+  - name: "budowa MVP bez testowania lokalnie"
+    person: "tom"
+    dialogplan_steps: [ "Tworzenie koncepcji", "Development" ]
+    tasks:
+      - task: "research"
+        description: "Dodano domyślny etap 'Tworzenie koncepcji'"
+        estimation: 1h
+      - task: "development"
+        description: "Dodano domyślny etap 'Tworzenie koncepcji'"
+        estimation: 5h
+
+  - name: "budowa MVP z testowaniem na produkcji i monitorowaniem"
+    person: "tom"
+    dialogplan_steps: [ "Tworzenie koncepcji", "Development", "testowanie", "monitoring" ]
+    tasks:
+      - task: "research"
+        estimation: 1h
+      - task: "development"
+        estimation: 5h
+      - task: "tests"
+        estimation: 5h
+      - task: "deployment"
+        estimation: 5h
+      - task: "monitoring"
+        estimation: 5h

@@ -9,7 +9,7 @@ STEP_QUESTION="Podaj pytanie"
 STEP_NAME="Podaj nazwę etapu"
 STEP_VALUE="Podaj wartość"
 
-HISTORY_FILE = "dialoghistory.yaml"
+HISTORY_FILE = "dialogstory.yaml"
 HISTORY_HEADER = "Data | Kto | Opis"
 HISTORY_QUESTION="Podaj opis zmiany"
 HISTORY_NAME="Podaj etap"

@@ -1,0 +1,154 @@
+transakcje:
+- time: '2024-07-12'
+  typ: ops
+  kto: tom
+  opis: Stworzono etapy
+  etap: ""
+- time: '2024-07-12'
+  typ: dev
+  kto: tom
+  opis: Wyslano kod do repozytorium
+  etap: 'Tworzenie koncepcji'
+
+
+  - data: "2023-07-15"
+    autor: "Jan Kowalski"
+    typ_zmiany: "Utworzenie"
+    opis: "Utworzono początkowy plan projektu"
+    szczegóły:
+      - etap: "Analiza wymagań"
+        zmiany:
+          - "Dodano etap"
+          - "Ustalono czas wykonania na 3 dni"
+          - "Ustawiono wysoki priorytet"
+      - etap: "Projektowanie systemu"
+        zmiany:
+          - "Dodano etap"
+          - "Ustalono czas wykonania na 5 dni"
+          - "Ustawiono średni priorytet"
+          - "Dodano zależność od etapu 'Analiza wymagań'"
+      - etap: "Implementacja"
+        zmiany:
+          - "Dodano etap"
+          - "Ustalono czas wykonania na 10 dni"
+          - "Ustawiono wysoki priorytet"
+          - "Dodano zależność od etapu 'Projektowanie systemu'"
+      - etap: "Testowanie"
+        zmiany:
+          - "Dodano etap"
+          - "Ustalono czas wykonania na 7 dni"
+          - "Ustawiono wysoki priorytet"
+          - "Dodano zależność od etapu 'Implementacja'"
+      - etap: "Wdrożenie"
+        zmiany:
+          - "Dodano etap"
+          - "Ustalono czas wykonania na 2 dni"
+          - "Ustawiono wysoki priorytet"
+          - "Dodano zależność od etapu 'Testowanie'"
+
+  - data: "2023-07-20"
+    autor: "Anna Nowak"
+    typ_zmiany: "Modyfikacja"
+    opis: "Zaktualizowano czas wykonania dla etapu 'Implementacja'"
+    szczegóły:
+      - etap: "Implementacja"
+        zmiany:
+          - "Zmieniono czas wykonania z 10 dni na 12 dni"
+
+  - data: "2023-07-25"
+    autor: "Piotr Wiśniewski"
+    typ_zmiany: "Dodanie"
+    opis: "Dodano nowy etap 'Szkolenie użytkowników'"
+    szczegóły:
+      - etap: "Szkolenie użytkowników"
+        zmiany:
+          - "Dodano nowy etap"
+          - "Ustalono czas wykonania na 3 dni"
+          - "Ustawiono średni priorytet"
+          - "Dodano zależność od etapu 'Wdrożenie'"
+
+  - data: "2023-08-01"
+    autor: "Jan Kowalski"
+    typ_zmiany: "Usunięcie"
+    opis: "Usunięto etap 'Szkolenie użytkowników'"
+    szczegóły:
+      - etap: "Szkolenie użytkowników"
+        zmiany:
+          - "Usunięto etap"
+          -
+nazwa_projektu: "System zarządzania zamówieniami"
+opis: "Rozwój i wdrożenie systemu zarządzania zamówieniami dla firmy logistycznej"
+data_rozpoczęcia: "2023-09-01"
+data_zakończenia: "2024-03-01"
+
+chain:
+  - id: 1
+    nazwa: "Analiza wymagań biznesowych"
+    opis: "Zbieranie i analiza wymagań od interesariuszy"
+    czas_trwania: "2 tygodnie"
+    zasoby: ["Analityk biznesowy", "Kierownik projektu"]
+    poprzednik: null
+    następnik: 2
+
+  - id: 2
+    nazwa: "Projektowanie architektury systemu"
+    opis: "Tworzenie wysokopoziomowej architektury systemu"
+    czas_trwania: "3 tygodnie"
+    zasoby: ["Architekt systemu", "Główny programista"]
+    poprzednik: 1
+    następnik: 3
+
+  - id: 3
+    nazwa: "Implementacja modułu zamówień"
+    opis: "Rozwój głównego modułu obsługi zamówień"
+    czas_trwania: "6 tygodni"
+    zasoby: ["Programista Frontend", "Programista Backend"]
+    poprzednik: 2
+    następnik: 4
+
+  - id: 4
+    nazwa: "Implementacja modułu płatności"
+    opis: "Integracja systemu płatności"
+    czas_trwania: "4 tygodnie"
+    zasoby: ["Programista Backend", "Specjalista ds. bezpieczeństwa"]
+    poprzednik: 3
+    następnik: 5
+
+  - id: 5
+    nazwa: "Testowanie systemu"
+    opis: "Kompleksowe testy funkcjonalne i wydajnościowe"
+    czas_trwania: "3 tygodnie"
+    zasoby: ["Tester", "Analityk QA"]
+    poprzednik: 4
+    następnik: 6
+
+  - id: 6
+    nazwa: "Wdrożenie systemu"
+    opis: "Deployement systemu na środowisku produkcyjnym"
+    czas_trwania: "1 tydzień"
+    zasoby: ["DevOps", "Administrator systemu"]
+    poprzednik: 5
+    następnik: 7
+
+  - id: 7
+    nazwa: "Szkolenie użytkowników"
+    opis: "Przeprowadzenie szkoleń dla końcowych użytkowników"
+    czas_trwania: "2 tygodnie"
+    zasoby: ["Trener", "Specjalista wsparcia"]
+    poprzednik: 6
+    następnik: null
+
+zależności_dodatkowe:
+  - [3, 4]  # Moduł zamówień i płatności mogą być częściowo rozwijane równolegle
+  - [5, 7]  # Przygotowania do szkolenia mogą zacząć się podczas fazy testów
+
+kamienie_milowe:
+  - nazwa: "Zatwierdzenie architektury"
+    data: "2023-09-22"
+    powiązany_etap: 2
+  - nazwa: "Wersja alfa systemu"
+    data: "2023-11-17"
+    powiązany_etap: 4
+  - nazwa: "Gotowość do wdrożenia"
+    data: "2023-12-22"
+    powiązany_etap: 5

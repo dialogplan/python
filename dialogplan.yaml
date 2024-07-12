@@ -1,4 +1,18 @@
-- etap: Tworzenie koncepcji
-  czas_wykonania: 1h
-  priorytet: pilny
-  zależności: []
+dialogplan:
+  - purpose: stworzenie aplikacji
+    scope:
+      - system plik
+      - github
+      - deployment server
+    limits:
+      - human: 1
+      - hours: 10h
+
+    dependencies: []
+    steps:
+      - etap: Development
+        priorytet: pilny
+        zależności: []
+      - etap: Development
+        priorytet: pilny
+        zależności: []

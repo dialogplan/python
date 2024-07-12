@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Przekazanie wszystkich argumentów do skryptu Pythona
+python dialogplan.py "$@"
+
+# Sprawdzenie czy podane są argumenty
+if [ $# -eq 0 ]; then
+    echo "Brak argumentów."
+    #python dialogplan.py
+    #echo "./dialogplan.py [opcje]"
+    exit 1
+fi
